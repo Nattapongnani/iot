@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">B6123093</string>
+    <string name="temperature">ไม่ทราบค่าอุณภูมิ</string>
+    <string name="humdity">ไม่ทราบค่าความชื่น</string>
+    <string name="light1">ไฟดวงที่ 1</string>
+    <string name="light2">ไฟดวงที่ 2</string>
+    <string name="on1">เปิดไฟ1</string>
+    <string name="off1">ปิดไฟ1</string>
+    <string name="on2">เปิดไฟ2</string>
+    <string name="off2">ปิดไฟ2</string>
+    <string name="light">Light</string>
+    <string name="celsius">เซลเซียล</string>
+    <string name="percent">เปอร์เซ็น</string>
+</resources>
