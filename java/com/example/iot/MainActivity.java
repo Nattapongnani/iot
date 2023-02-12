@@ -21,19 +21,39 @@ import java.net.URL;
 import java.util.Timer;
 import java.util.TimerTask;
 
+/*
+    <WebView
+        android:id="@+id/tempGraph"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+*/
+
 
 public class MainActivity extends AppCompatActivity {
 
     TextView temperatureView;
     TextView humidityView;
+    WebView tempGraphView;
 
     private static final String TEMPERATURE_URL = "https://api.thingspeak.com/channels/2014343/field/1/last.json";
     private static final String HUMIDITY_URL = "https://api.thingspeak.com/channels/2014343/field/2/last.json";
+    //add
+    private static final String TEMPERATURE_GRAPH_URL = "https://thingspeak.com/channels/2014343/charts/1?bgcolor=%23ffffff&color=%23d62020&dynamic=true&results=60&type=line&update=15";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        // lab 7
+        int orientation = getResources().getConfiguration().orientation;
+        if(orientation == Configuration.ORIENTATION_LANDSCAPE){ //landscape
+            temperatureView = findViewById(R.id.tempGraph);
+            tempGraphView.loadUrl(TEMPERATURE_GRAPH_URL);
+            tempGraphView.getSettings().setJavaScriptEnabled(true);
+        } else { // portrait
+
+        }
 
         temperatureView = findViewById(R.id.temp);
         humidityView = findViewById(R.id.humid);
@@ -87,12 +107,22 @@ public class MainActivity extends AppCompatActivity {
             try{
                 JSONObject channel = (JSONObject) new JSONTokener(response).nextValue();
                 if (channel.has("field1")){
-                    String message = getText(R.string.temperature) + " " + channel.getString("field1") + " " + getText(R.string.celsius);
-                    temperatureView.setText(message);
+                    String status = channel.getString("field1");
+                    if(!status.equals("null")){
+                        String message = getText(R.string.temperature) + " " + status + " " + getText(R.string.celsius);
+                        temperatureView.setText(message);
+                    }
+                    //String message = getText(R.string.temperature) + " " + channel.getString("field1") + " " + getText(R.string.celsius);
+                    //temperatureView.setText(message);
                 }
                 if(channel.has("field2")){
-                    String message = getText(R.string.humdity) + " " + channel.getString("field2") + " " + getText(R.string.percent);
-                    humidityView.setText(message);
+                    String status = channel.getString("field2");
+                    if(!status.equals("null")){
+                        String message = getText(R.string.temperature) + " " + status + " " + getText(R.string.celsius);
+                        humidityView.setText(message);
+                    }
+                    //String message = getText(R.string.humdity) + " " + channel.getString("field2") + " " + getText(R.string.percent);
+                    //humidityView.setText(message);
                 }
             } catch(JSONException e){
                 e.printStackTrace();
